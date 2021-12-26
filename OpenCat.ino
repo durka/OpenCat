@@ -441,7 +441,10 @@ void loop() {
     //if set too high, the robot will stop working when the battery still has power.
     //If too low, the robot may not alarm before the battery shuts off
     PTL("Low power!");
-    beep(15, 50, 50, 3);
+    PTL(voltage);
+    if(voltage > NO_BATT) {
+      beep(15, 50, 50, 3);
+    }
     delay(1500);
   }
 

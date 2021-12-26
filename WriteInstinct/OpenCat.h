@@ -254,7 +254,8 @@ byte pins[] = {12, 11, 3, 4,
                15, 8, 7, 0
               };
 #define BATT A7
-#define LOW_BATT 640
+#define LOW_BATT 640 // low power shutdown threshold
+#define NO_BATT 50 // when plugged in by USB and no battery at all, don't beep
 #define DEVICE_ADDRESS 0x54
 #define BAUD_RATE 115200
 //define PIXEL_PIN 10
