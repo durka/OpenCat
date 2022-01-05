@@ -5,7 +5,7 @@ const char head[] PROGMEM = R"=====(
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>OpenCAT Nybble Web Control</title>
+    <title>OpenCAT BOOSTER Web Control</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=0.8, user-scalable=yes"/>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
@@ -116,6 +116,13 @@ const char head[] PROGMEM = R"=====(
 
         .content {
             margin: 25px;
+            text-align: center;
+        }
+
+        #input {
+          font-family: monospace;
+          font-size: 1em;
+          width: 46.25em
         }
 
         .explanation {
@@ -130,13 +137,47 @@ const char head[] PROGMEM = R"=====(
     </style>
     <script type="text/javascript">
         document.addEventListener('DOMContentLoaded', function () {
-            let title = "%TITLE%";
-            document.getElementById(title).classList.add('active')
+            initWebSocket();
         });
+
+        var gateway = `ws://${window.location.hostname}/ws`;
+        var websocket;
+        function initWebSocket() {
+          console.log('Trying to open a WebSocket connection...');
+          websocket = new WebSocket(gateway);
+          websocket.onopen    = onOpen;
+          websocket.onclose   = onClose;
+          websocket.onmessage = onMessage;
+
+          document.getElementById("input").value = "";
+          document.getElementById("output").value = "";
+        }
+        function onOpen(event) {
+          console.log('Connection opened');
+          document.getElementById("status").innerHTML = "Connected";
+        }
+        function onClose(event) {
+          console.log('Connection closed');
+          document.getElementById("status").innerHTML = "Disconnected";
+          setTimeout(initWebSocket, 2000);
+        }
+        function onMessage(event) {
+          console.log("received " + event.data);
+          document.getElementById("output").value += event.data;
+        }
+        function wsSend() {
+          var text = document.getElementById("input").value;
+          console.log("sending " + text);
+          websocket.send(text);
+          document.getElementById("input").value = "";
+        }
     </script>
 </head>
 
 <body>
+<div class="topnav">
+  <h1>ESP WebSocket Server</h1>
+</div>
 <div class="header">
     <ul>
         <li><a id="Home" href="/">Home</a></li>
@@ -148,6 +189,14 @@ const char head[] PROGMEM = R"=====(
 )=====";
 
 const char foot[] PROGMEM = R"=====(
+<div class="content">
+  <span id="status">Disconnected</span><br/>
+  <form onsubmit="wsSend(); return false;">
+    <input id="input" type="text" size="75" />
+    <br/>
+    <textarea id="output" rows=20 cols=75></textarea>
+  </form>
+</div>
 <div class="footer">
     <p>Petoi LLC 2021 www.petoi.com</p>
 </div>
