@@ -594,6 +594,9 @@ void loop() {
             printList(currentAng);
             break;
           }
+        case T_VOLTAGE: // show voltage
+            PTL((float)voltage / BATT_FACTOR);
+            break;
         case T_CALIBRATE: //calibration
         case T_MOVE: //move multiple indexed joints to angles once at a time (ASCII format entered in the serial monitor)
         case T_SIMULTANEOUS_MOVE: //move multiple indexed joints to angles simultaneously (ASCII format entered in the serial monitor)

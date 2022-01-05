@@ -165,6 +165,7 @@ void meow(int repeat = 0, int pause = 200, int startF = 50,  int endF = 200, int
 #define T_MEOW      'u'
 #define T_UNDEFINED 'w'
 #define T_XLEG      'x'
+#define T_VOLTAGE   'v'
 
 //abbreviation //gait/posture/function names
 #define K00 "d"       //rest and shutdown all servos 
@@ -233,6 +234,7 @@ byte pins[] = {7, 0, 8, 15,
               };
 #define BATT A0 //voltage detector
 #define LOW_BATT 440
+#define NO_BATT 50
 #define DEVICE_ADDRESS 0x50     //I2C Address of eeprom chip         
 #define BAUD_RATE 57600
 
@@ -244,6 +246,8 @@ byte pins[] = {4, 3, 11, 12,
               };
 #define BATT A0
 #define LOW_BATT 440
+#define NO_BATT 35
+#define BATT_FACTOR 76.554
 #define DEVICE_ADDRESS 0x50
 #define BAUD_RATE 57600
 
@@ -256,6 +260,7 @@ byte pins[] = {12, 11, 3, 4,
 #define BATT A7
 #define LOW_BATT 640 // low power shutdown threshold
 #define NO_BATT 50 // when plugged in by USB and no battery at all, don't beep
+#define BATT_FACTOR 111.53
 #define DEVICE_ADDRESS 0x54
 #define BAUD_RATE 115200
 //define PIXEL_PIN 10
