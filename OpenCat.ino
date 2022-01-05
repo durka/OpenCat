@@ -505,7 +505,7 @@ void loop() {
       else
         PTL(token);
       if (newCmdIdx < 4)
-        beep(newCmdIdx * 4);
+        {}//beep(newCmdIdx * 4);
       if (token != T_PAUSE) //any key other than pause will resume the robot's movement
         tStep = 1;
       // this block handles argumentless tokens

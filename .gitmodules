@@ -1,0 +1,3 @@
+[submodule "sim/urdf"]
+	path = sim/urdf
+	url = git@github.com:AIWintermuteAI/Bittle_URDF
